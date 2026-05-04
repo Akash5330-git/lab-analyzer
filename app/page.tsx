@@ -10,7 +10,7 @@ export default function Home() {
     gender: "male",
   });
 
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState<any>(null);
 
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -110,13 +110,13 @@ export default function Home() {
       fontSize: 22,
       fontWeight: "bold",
       color:
-        result.risk === "Low"
+        result?.risk === "Low"
           ? "#16a34a"
-          : result.risk === "Moderate"
+          : result?.risk === "Moderate"
           ? "#f59e0b"
           : "#dc2626"
     }}>
-      {result.risk} Risk
+     {result?.risk} Risk
     </p>
 
     {result.details && (
