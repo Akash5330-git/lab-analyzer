@@ -123,9 +123,9 @@ export default function Home() {
       <div style={{ marginTop: 10 }}>
         <b style={{ color: "#000" }}>Analysis:</b>
         <ul style={{ marginTop: 5 }}>
-          {result.details.map((item, i) => (
-            <li key={i} style={{ color: "#000" }}>{item}</li>
-          ))}
+          {result.details.map((item: string, i: number) => (
+        <li key={i} style={{ color: "#000" }}>{item}</li>
+        ))}
         </ul>
       </div>
     )}
