@@ -1,8 +1,10 @@
-export async function POST(req) {
+import { NextRequest, NextResponse } from "next/server";
+
+export async function POST(req: NextRequest) {
   const { hemoglobin, sugar, cholesterol, age, gender } = await req.json();
 
-  // ----- RISK (no Python, Vercel-safe) -----
-  let risk = "";
+  // ----- RISK -----
+  let risk: "Low" | "Moderate" | "High";
   if (hemoglobin < 12 || sugar > 160 || cholesterol > 240) {
     risk = "High";
   } else if (hemoglobin < 13 || sugar > 140 || cholesterol > 200) {
@@ -12,7 +14,7 @@ export async function POST(req) {
   }
 
   // ----- DETAILS -----
-  let details = [];
+  const details: string[] = [];
 
   if ((gender === "male" && hemoglobin < 13) || (gender === "female" && hemoglobin < 12)) {
     details.push("Low hemoglobin → possible anemia");
@@ -36,21 +38,21 @@ export async function POST(req) {
     details.push("Cholesterol is normal");
   }
 
-  // ----- RECOMMENDATION (ARRAY for bullets) -----
-  let recommendation = [];
+  // ----- RECOMMENDATION -----
+  let recommendation: string[];
 
   if (risk === "Low") {
     recommendation = [
       "Maintain a balanced diet",
       "Exercise regularly (30 mins daily)",
-      "Do regular health checkups"
+      "Do regular health checkups",
     ];
   } else if (risk === "Moderate") {
     recommendation = [
       "Reduce sugar and processed foods",
       "Increase physical activity",
       "Monitor your health regularly",
-      "Consult a doctor if needed"
+      "Consult a doctor if needed",
     ];
   } else {
     recommendation = [
@@ -58,13 +60,9 @@ export async function POST(req) {
       "Avoid high sugar and fatty foods",
       "Follow a strict diet plan",
       "Start controlled exercise",
-      "Take medical tests if advised"
+      "Take medical tests if advised",
     ];
   }
 
-  return Response.json({
-    risk,
-    details,
-    recommendation
-  });
+  return NextResponse.json({ risk, details, recommendation });
 }
