@@ -12,7 +12,7 @@ export default function Home() {
 
   const [result, setResult] = useState(null);
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
